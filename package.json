@@ -1,0 +1,11 @@
+{
+  "name": "sc2006_fullhouse_backend",
+  "version": "1.0.0",
+  "description": "sc2006_fullhouse_backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fullhouse team",
+  "license": "ISC"
+}
