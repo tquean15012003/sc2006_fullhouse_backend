@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const changePassword = async (req, res) => {
     const token = req.header("token")
     const { oldPassword, newPassword } = req.body
-    const decode = jwt.verify(token, "full-house")
+    const decode = jwt.verify(token, process.env.SECRET_KEY)
     email = decode.email;
 
     const user = await User.findOne({
