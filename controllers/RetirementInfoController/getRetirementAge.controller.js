@@ -22,7 +22,6 @@ const getRetirementAge = async (req, res) => {
         if (retirementInfo) {
             const { name, age, degree, salary, carCat, housePrice, investments,currentSaving, noChild, ageOfGrad} = retirementInfo
             retirementAge = getRetirementAgeHelper(parseInt(salary), carCat, parseInt(housePrice), parseInt(currentSaving), parseInt(investments), parseInt(noChild), parseInt(ageOfGrad))
-
             res.status(200).send({
                 message: "Get retirement age successfully!",
                 retirementAge

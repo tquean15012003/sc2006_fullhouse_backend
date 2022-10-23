@@ -1,144 +1,135 @@
 const getRetirementAgeHelper = (salary, carCat, housePrice, currentSaving, investmentPercentage, noChild, ageOfGrad) => {
-    savings = 0;
-    investment = 0; //KIV
-    total = 0;
-    costofliving = 0;
-    costcar = 0;
-    y=0;
-    grad = ageOfGrad;
-    salary = salary;
-    costofcar = 0;
 
-    if (carCat == 'A' || carCat == 'a')
-    {
-        costcar = 80500;
-    }
-    else if (carCat == 'B'|| carCat == 'b')
-    {
-        costcar = 95856;
-    }
-    else if (carCat == 'C'|| carCat == 'c')
-    {
-        costcar = 65991;
-    }
-    else if (carCat == 'D'|| carCat == 'd')
-    {
-        costcar = 11751;
-    }
-    else if (carCat == 'E'|| carCat == 'e')
-    {
-        costcar = 105001;
-    }
+    let savings = 0 // money from savings
 
-    init = currentSaving - (noChild * 170000) - housePrice - costcar;
+    let investment = 0 // money from investment
 
-    while (total < (84 - grad) * 48000) {
+    let total = 0 // total money get after retirement
+
+    let costofliving = 0;
+
+    let y = 0;
+
+    let grad = parseInt(ageOfGrad)
+
+    let costOfCar = parseInt(carCostMap[carCat]);
+
+    let init = parseInt(currentSaving) - (noChild * 170000) - parseInt(housePrice) - costOfCar;
+
+    while (total < ((84 - parseInt(grad)) * 70000)) {
         if (grad <= 55) {
             if (grad < 31) {
-                if (y == 0) {
+                if (y === 0) {
                     costofliving = 1500;
                     y = 1;
                 }
-                for (let x = 0; x < 12; x++) {
-                    savings = savings + (((salary * 80 / 100) - costofliving) * (100 - investmentPercentage) / 100);
-                    investment = investment + (((salary * 80 / 100) - costofliving) * (investmentPercentage / 100));
-                }
-                investment = investment + (investment * 5 / 100);
-                salary = salary + (salary * 3 / 100);
-                if (costcar != 0)
-                savings = savings - 6500;
-                total = init + investment + savings;
+                let postMoney = salary * 0.8 - costofliving
+                savings = savings + postMoney * (100 - investmentPercentage) / 100 * 12
+                investment = investment +  postMoney * investmentPercentage / 100 * 12
+
+                investment = investment * 1.05
+                salary = salary * 1.03
+                total = init + investment + savings
                 grad++;
-                costofliving = costofliving * (105 / 100);
-            }
-            else {
-                if (y == 1) {
-                    costofliving = 5200;
+                costofliving = costofliving * 1.05
+            } else {
+                if (y === 1) {
+                    costofliving = 1500;
                     y = 0;
                 }
-                for (let x = 0; x < 12; x++) {
-                    savings = savings + (((salary * 80 / 100) - costofliving) * ((100 - investmentPercentage) / 100));
-                    investment = investment + (((salary * 80 / 100) - costofliving) * (investmentPercentage / 100));
-                }
-                investment = investment + (investment * 5 / 100);
-                salary = salary + (salary * 3 / 100);
-                if (costcar != 0)
-                savings = savings - 6500;
-                total = init + investment + savings;
-                grad++;
-                costofliving = costofliving * (105 / 100);
-            }
-        }
-        else if (grad <= 60) {
-            if (y == 0) {
-                costofliving = 2000;
-                y = 1;
-            }
-            for (let x = 0; x < 12; x++) {
-                savings = savings + (((salary * 86 / 100) - costofliving) * ((100 - investmentPercentage) / 100));
-                investment = investment + (((salary * 86 / 100) - costofliving) * (investmentPercentage / 100));
-            }
-            investment = investment + (investment * 5 / 100);
-            salary = salary + (salary * 1 / 100);
-            if (costcar != 0)
-            savings = savings - 6500;
-            total = init + investment + savings;
-            grad++;
-            costofliving = costofliving * (105 / 100);
-        }
-        else if (grad <= 65) {
-            if (y == 1) {
-                costofliving = 2000;
-                y = 0;
-            }
-            for (let x = 0; x < 12; x++) {
-                savings = savings + (((salary * 92 / 100) - costofliving) * ((100 - investmentPercentage) / 100);
-                investment = investment + (((salary * 92 / 100) - costofliving) * investmentPercentage / 100);
-            }
-            investment = investment + (investment * 5 / 100);
-            if (costcar != 0)
-            savings = savings - 6500;
-            total = init + investment + savings;
-            grad++;
-            costofliving = costofliving * (105 / 100);
-        }
-        else if (grad <= 70) {
-            if (y == 0) {
-                costofliving = 2000;
-                y = 1;
-            }
-            for (let x = 0; x < 12; x++) {
-                savings = savings + (((salary * 94 / 100) - costofliving) * (100 - investmentPercentage) / 100);
-                investment = investment + (((salary * 94 / 100) - costofliving) * investmentPercentage / 100);
-            }
-            investment = investment + (investment * 5 / 100);
-            if (costcar != 0)
-            savings = savings - 6500;
-            total = init + investment + savings;
-            grad++;
-            costofliving = costofliving * (105 / 100);
-        }
-        else {
-            if (y == 1) {
-                costofliving = 2000;
-                y = 0;
-            }
-            for (let x = 0; x < 12; x++) {
-                savings = savings + (((salary * 95 / 100) - costofliving) * (100 - investmentPercentage) / 100);
-                investment = investment + (((salary * 95 / 100) - costofliving) * investmentPercentage / 100);
-            }
-            investment = investment + (investment * 5 / 100);
-            if (costcar != 0)
-            savings = savings - 6500;
-            total = init + investment + savings;
-            grad++;
-            costofliving = costofliving * (105 / 100);
-        }
 
+                let postMoney = salary * 0.8 - costofliving
+                savings = savings + postMoney * (100 - investmentPercentage) / 100 * 12
+                investment = investment + postMoney * investmentPercentage / 100 * 12
+
+                investment = investment * 1.05
+                salary = salary * 1.03
+                total = init + investment + savings
+                grad++;
+                costofliving = costofliving * 1.05
+            }
+        } else if (grad <= 60) {
+            if (y === 0) {
+                costofliving = 2000;
+                y = 1;
+            }
+
+            let postMoney = salary * 0.86 - costofliving
+            savings = savings + postMoney * (100 - investmentPercentage) / 100 * 12
+            investment = investment + postMoney * investmentPercentage / 100 * 12
+
+            investment = investment * 1.05
+            salary = salary * 1.01
+            total = init + investment + savings
+            grad++;
+            costofliving = costofliving * 1.05
+        } else if (grad <= 65) {
+            if (y === 1) {
+                costofliving = 2000;
+                y = 0;
+            }
+
+            let postMoney = salary * 0.92 - costofliving
+            savings = savings + postMoney * (100 - investmentPercentage) / 100 * 12
+            investment = investment + postMoney * investmentPercentage / 100 * 12
+
+
+            investment = investment * 1.05
+            salary = salary
+            total = init + investment + savings
+            grad++;
+            costofliving = costofliving * 1.05
+        } else if (grad <= 70) {
+            if (y === 0) {
+                costofliving = 2000;
+                y = 1;
+            }
+
+            let postMoney = salary * 0.94 - costofliving
+            savings = savings + postMoney * (100 - investmentPercentage) / 100 * 12
+            investment = investment + postMoney * investmentPercentage / 100 * 12
+
+            investment = investment * 1.05
+            salary = salary
+            total = init + investment + savings
+            grad++;
+            costofliving = costofliving * 1.05
+        } else {
+            if (y === 1) {
+                costofliving = 2000;
+                y = 0;
+            }
+
+            let postMoney = salary * 0.95 - costofliving
+            savings = savings + postMoney * (100 - investmentPercentage) / 100 * 12
+            investment = investment + postMoney * investmentPercentage / 100 * 12
+
+            investment = investment * 1.05
+            salary = salary
+            total = init + investment + savings
+            grad++;
+            costofliving = costofliving * 1.05
+        }
     }
-    return grad; // retirementAge
+
+    return grad;
+
 }
 
 module.exports = {
     getRetirementAgeHelper
+}
+
+const carCostMap = {
+    "A": 80500,
+    "a": 80500,
+    "B": 95856,
+    "b": 95856,
+    "C": 65991,
+    "c": 65991,
+    "D": 11751,
+    "d": 11751,
+    "E": 105001,
+    'e': 105001,
+    "No car": 0
 }
