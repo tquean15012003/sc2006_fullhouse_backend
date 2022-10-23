@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const authenticate = (req, res, next) => {
     const token = req.header("token")
     try {
-        const decode = jwt.verify(token, process.env.SECRET_KEY)
+        const decode = jwt.verify(token, "quean001") //process.env.SECRET_KEY
         if (decode) {
             req.user = decode;
             next();

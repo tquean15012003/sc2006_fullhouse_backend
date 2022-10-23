@@ -1,4 +1,4 @@
-const { User } = require('../../models/index.js');
+const { User, RetirementInfo } = require('../../models/index.js');
 const bcrypt = require('bcryptjs');
 const { generateSixDigits } = require('../../helpers/generateDigits.js')
 const { sendVerificationCode } = require('../../helpers/emailHelper.js')
@@ -17,6 +17,18 @@ const signUp = async (req, res) => {
             email,
             phoneNumber,
             verificationCode: generateSixDigits()
+        });
+        const newRetirementInfo = await RetirementInfo.create({
+            userID: newUser.id,
+            name: "",
+            age: "",
+            degree: "",
+            salary: "",
+            carCat: "",
+            housePrice: "",
+            investments: "",
+            currentSaving: "",
+            noChild: "",
         });
 
         if (sendVerificationCode(email, newUser.verificationCode)) {

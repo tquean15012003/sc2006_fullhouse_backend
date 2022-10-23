@@ -18,7 +18,7 @@ const signIn = async (req, res) => {
                 const token = jwt.sign({
                     username: user.username,
                     email: user.email
-                }, process.env.SECRET_KEY, { expiresIn: 60 * 1000 })
+                }, "quean001", { expiresIn: 1000 * 1000 }) // process.env.SECRET_KEY
                 res.status(200).send({
                     message: "Sign in successfully!",
                     token
