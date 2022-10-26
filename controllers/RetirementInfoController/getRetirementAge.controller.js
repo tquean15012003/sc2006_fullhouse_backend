@@ -1,6 +1,6 @@
 const { RetirementInfo, User } = require('../../models/index.js');
 const jwt = require('jsonwebtoken');
-const { getRetirementAgeHelper }  = require('../../helpers/retirementInfoHelper')
+const { getRetirementAgeHelper } = require('../../helpers/retirementInfoHelper')
 
 const getRetirementAge = async (req, res) => {
     const token = req.header("token")
@@ -20,7 +20,7 @@ const getRetirementAge = async (req, res) => {
             }
         });
         if (retirementInfo) {
-            const { name, age, degree, salary, carCat, housePrice, investments,currentSaving, noChild, ageOfGrad} = retirementInfo
+            const { age, salary, carCat, housePrice, investments, currentSaving, noChild, ageOfGrad } = retirementInfo
             retirementAge = getRetirementAgeHelper(parseInt(salary), carCat, parseInt(housePrice), parseInt(currentSaving), parseInt(investments), parseInt(noChild), parseInt(ageOfGrad))
             res.status(200).send({
                 message: "Get retirement age successfully!",
@@ -38,6 +38,24 @@ const getRetirementAge = async (req, res) => {
     }
 }
 
+const getGuestRetirementAge = async (req, res) => {
+    try {
+        const { age, salary, carCat, housePrice, investments, currentSaving, noChild, ageOfGrad } = req.body
+        retirementAge = getRetirementAgeHelper(parseInt(salary), carCat, parseInt(housePrice), parseInt(currentSaving), parseInt(investments), parseInt(noChild), parseInt(ageOfGrad))
+        res.status(200).send({
+            message: "Get retirement age successfully!",
+            retirementAge
+        });
+    } catch (error) {
+        res.status(404).send({
+            message: "Cannot get your retirement age!"
+        });
+    }
+
+
+}
+
 module.exports = {
-    getRetirementAge
+    getRetirementAge,
+    getGuestRetirementAge
 }

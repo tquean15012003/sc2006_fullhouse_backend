@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getRetirementInfoByUserID, updateRetirementInfo, getRetirementAge, updateInvestment, updateSalary, updateHousePrice } = require('../controllers/RetirementInfoController/retirementInfo.controller')
+const { getGuestRetirementAge, getRetirementInfoByUserID, updateRetirementInfo, getRetirementAge, updateInvestment, updateSalary, updateHousePrice } = require('../controllers/RetirementInfoController/retirementInfo.controller')
 
 const retirementInfoRouter = express.Router();
 
@@ -10,7 +10,7 @@ retirementInfoRouter.get('/getretirementage', getRetirementAge)
 retirementInfoRouter.put('/updateinvestment', updateInvestment);
 retirementInfoRouter.put('/updatesalary', updateSalary);
 retirementInfoRouter.put('/updatehouseprice', updateHousePrice);
-
+retirementInfoRouter.post('/getguestretirementage', getGuestRetirementAge)
 
 module.exports = {
     retirementInfoRouter

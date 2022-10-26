@@ -1,6 +1,6 @@
 const { getRetirementInfoByUserID } = require('./getRetirementInfoByUserID.controller')
 const { updateRetirementInfo, updateInvestment, updateSalary, updateHousePrice } = require('./updateRetirementInfo.controller')
-const { getRetirementAge } = require('./getRetirementAge.controller')
+const { getRetirementAge, getGuestRetirementAge} = require('./getRetirementAge.controller')
 
 module.exports = {
     getRetirementInfoByUserID,
@@ -8,5 +8,6 @@ module.exports = {
     updateInvestment,
     getRetirementAge,
     updateSalary,
-    updateHousePrice
+    updateHousePrice,
+    getGuestRetirementAge
 }

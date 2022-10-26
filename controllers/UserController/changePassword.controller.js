@@ -34,12 +34,50 @@ const changePassword = async (req, res) => {
             });
         }
     } else {
-        res.status(500).send({
+        res.status(404).send({
+            message: "User does not exist!"
+        });
+    }
+}
+
+// change email
+const changeEmail = async (req, res) => {
+    const token = req.header("token")
+    const decode = jwt.verify(token, "quean001")
+    email = decode.email;
+
+    const user = await User.findOne({
+        where: {
+            email
+        }
+    });
+
+    if (user) {
+        const { newEmail } = req.body
+        const userTakeEmail = await User.findOne({
+            where: {
+                email: newEmail
+            }
+        });
+        if (userTakeEmail) {
+            res.status(500).send({
+                message: "Email has been taken!"
+            });
+        } else {
+            user.email = newEmail
+            await user.save();
+            res.status(200).send({
+                message: "Change email successfully!"
+            });
+        }
+    } else {
+        res.status(404).send({
             message: "User does not exist!"
         });
     }
 }
 
 module.exports = {
-    changePassword
+    changePassword,
+    changeEmail
 }
