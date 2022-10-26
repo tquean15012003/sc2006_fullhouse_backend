@@ -49,6 +49,128 @@ const updateRetirementInfo = async (req, res) => {
     }
 }
 
+const updateInvestment = async (req, res) => {
+    const token = req.header("token")
+    const decode = jwt.verify(token, "quean001")
+    email = decode.email;
+
+    const user = await User.findOne({
+        where: {
+            email
+        }
+    });
+    if (user) {
+        userID = user.id
+        const retirementInfo = await RetirementInfo.findOne({
+            where: {
+                userID
+            }
+        });
+        if (retirementInfo) {
+            const { investments } = req.body
+
+            console.log(investments)
+
+            retirementInfo.investments = investments
+
+            await retirementInfo.save();
+            res.status(200).send({
+                message: "Update successfully!",
+                retirementInfo
+            });
+        } else {
+            res.status(404).send({
+                message: "User does not exist!"
+            });
+        }
+    } else {
+        res.status(404).send({
+            message: "User does not exist!"
+        });
+    }
+}
+
+const updateSalary = async (req, res) => {
+    const token = req.header("token")
+    const decode = jwt.verify(token, "quean001")
+    email = decode.email;
+
+    const user = await User.findOne({
+        where: {
+            email
+        }
+    });
+    if (user) {
+        userID = user.id
+        const retirementInfo = await RetirementInfo.findOne({
+            where: {
+                userID
+            }
+        });
+        if (retirementInfo) {
+            const { salary } = req.body
+
+            retirementInfo.salary = salary
+
+            await retirementInfo.save();
+            res.status(200).send({
+                message: "Update successfully!",
+                retirementInfo
+            });
+        } else {
+            res.status(404).send({
+                message: "User does not exist!"
+            });
+        }
+    } else {
+        res.status(404).send({
+            message: "User does not exist!"
+        });
+    }
+}
+
+const updateHousePrice = async (req, res) => {
+    const token = req.header("token")
+    const decode = jwt.verify(token, "quean001")
+    email = decode.email;
+
+    const user = await User.findOne({
+        where: {
+            email
+        }
+    });
+    if (user) {
+        userID = user.id
+        const retirementInfo = await RetirementInfo.findOne({
+            where: {
+                userID
+            }
+        });
+        if (retirementInfo) {
+            const { housePrice } = req.body
+
+            retirementInfo.housePrice = housePrice
+
+            await retirementInfo.save();
+            res.status(200).send({
+                message: "Update successfully!",
+                retirementInfo
+            });
+        } else {
+            res.status(404).send({
+                message: "User does not exist!"
+            });
+        }
+    } else {
+        res.status(404).send({
+            message: "User does not exist!"
+        });
+    }
+}
+
 module.exports = {
-    updateRetirementInfo
+    updateRetirementInfo,
+    updateInvestment,
+    updateSalary,
+    updateHousePrice
 }
