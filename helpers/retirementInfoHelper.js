@@ -14,14 +14,27 @@ const getRetirementAgeHelper = (salary, carCat, housePrice, currentSaving, inves
 
     let costOfCar = parseInt(carCostMap[carCat]);
 
-    let init = parseInt(currentSaving) - (noChild * 170000) - parseInt(housePrice) - costOfCar;
+    let init = parseInt(currentSaving) - (noChild * 170000) - parseInt(housePrice) / 2 - costOfCar;
 
     while (total < ((84 - parseInt(grad)) * 70000)) {
         if (grad <= 55) {
             if (grad < 31) {
                 if (y === 0) {
-                    costofliving = 1500;
-                    y = 1;
+                    if(salary <= 1000)
+                    {
+                        costofliving = 400;
+                        y = 1;
+                    }
+                    else if (salary <= 3500)
+                    {
+                         costofliving = 800;
+                         y = 1;
+                    }
+                    else
+                    {
+                        costofliving = 1500;
+                        y = 1;
+                    }
                 }
                 let postMoney = salary * 0.8 - costofliving
                 savings = savings + postMoney * (100 - investmentPercentage) / 100 * 12
@@ -34,8 +47,21 @@ const getRetirementAgeHelper = (salary, carCat, housePrice, currentSaving, inves
                 costofliving = costofliving * 1.05
             } else {
                 if (y === 1) {
-                    costofliving = 1500;
-                    y = 0;
+                    if (salary <= 1000)
+                    {
+                        costofliving = 400;
+                        y = 0;
+                    }
+                    else if (salary <= 3500)
+                    {
+                         costofliving = 800;
+                         y = 0;
+                    }
+                    else
+                    {
+                        costofliving = 2000;
+                        y = 0;
+                    }
                 }
 
                 let postMoney = salary * 0.8 - costofliving
