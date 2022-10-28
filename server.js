@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
 
+const cookieSession = require("cookie-session");
+const passport = require("passport");
+require("./auth/passport");
+
 // parse data
 app.use(express.json());
 
 // cors
 const cors = require('cors');
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }))
 
 //sequelize 
 const { sequelize } = require('./models/index.js');
@@ -15,6 +19,16 @@ const { sequelize } = require('./models/index.js');
 const path = require('path');
 const publicPathDirectory = path.join(__dirname, './public');
 app.use(express.static(publicPathDirectory));
+
+app.use(
+    cookieSession({
+        maxAge: 24 * 60 * 60 * 1000,
+        keys: ['quean001'],
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // router
 const { rootRouter } = require('./routers/index.js')

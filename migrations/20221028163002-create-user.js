@@ -11,18 +11,12 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
-        validate: {
-          notEmpty: true
-        }
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true,
       },
       email: {
         type: Sequelize.STRING,
@@ -35,11 +29,8 @@ module.exports = {
       },
       phoneNumber: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true,
+        unique: true
       },
       isVerified: {
         type: Sequelize.STRING,
@@ -47,6 +38,14 @@ module.exports = {
       },
       verificationCode: {
         type: Sequelize.STRING
+      },
+      googleId: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: true
+      },
+      picture: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

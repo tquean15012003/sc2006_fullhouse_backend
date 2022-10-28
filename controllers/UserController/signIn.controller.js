@@ -16,13 +16,12 @@ const signIn = async (req, res) => {
             const isAuth = bcrypt.compareSync(password, user.password);
             if (isAuth) {
                 const token = jwt.sign({
-                    username: user.username,
                     email: user.email
                 }, "quean001", { expiresIn: 1000 * 1000 }) // process.env.SECRET_KEY
                 res.status(200).send({
                     message: "Sign in successfully!",
                     token
-                    });
+                });
             } else {
                 res.status(500).send({
                     message: "Username or password is not valid!"
@@ -40,6 +39,18 @@ const signIn = async (req, res) => {
     }
 }
 
+// sign in
+const googleSignIn = async (req, res) => {
+    const token = jwt.sign({
+        email: req.user.email
+    }, "quean001", { expiresIn: 1000 * 1000 }) // process.env.SECRET_KEY
+    res.status(200).send({
+        message: "Sign in successfully!",
+        token
+    });
+}
+
 module.exports = {
-    signIn
+    signIn,
+    googleSignIn
 }
