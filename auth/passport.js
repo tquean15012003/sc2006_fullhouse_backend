@@ -19,32 +19,45 @@ passport.use(
                     googleId: profile.id
                 }
             }).catch((err) => {
-                console.log("Error signing up", err);
+                console.log("Error signing in", err);
                 cb(err, null);
             });
 
             if (!user) {
-                const defaultUser = {
-                    email: profile.emails[0].value,
-                    picture: profile.photos[0].value,
-                    googleId: profile.id,
-                    verificationCode: generateSixDigits(),
-                    isVerified: "true"
-                };
-                user = await User.create(defaultUser)
-
-                await RetirementInfo.create({
-                    userID: user.id,
-                    name: "",
-                    age: "",
-                    degree: "",
-                    salary: "",
-                    carCat: "",
-                    housePrice: "",
-                    investments: "",
-                    currentSaving: "",
-                    noChild: "",
+                let userTakenEmail = await User.findOne({
+                    where: {
+                        email: profile.emails[0].value
+                    }
+                }).catch((err) => {
+                    console.log("Error signing in", err);
+                    cb(err, null);
                 });
+                if (userTakenEmail) {
+                    user = userTakenEmail
+                } else {
+                    const defaultUser = {
+                        email: profile.emails[0].value,
+                        picture: profile.photos[0].value,
+                        googleId: profile.id,
+                        verificationCode: generateSixDigits(),
+                        isVerified: "true"
+                    };
+                    user = await User.create(defaultUser)
+
+                    await RetirementInfo.create({
+                        userID: user.id,
+                        name: "",
+                        age: "",
+                        degree: "",
+                        salary: "",
+                        carCat: "",
+                        housePrice: "",
+                        investments: "",
+                        currentSaving: "",
+                        noChild: "",
+                    });
+                }
+
             }
 
             if (user) return cb(null, user);
