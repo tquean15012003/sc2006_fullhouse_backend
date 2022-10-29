@@ -55,6 +55,7 @@ const resetPassword = async (req, res) => {
 
             user.isVerified = "true"
             user.password = hashPassword
+            user.verificationCode = generateSixDigits()
             await user.save();
             res.status(200).send({
                 message: "Reset password successfully!"

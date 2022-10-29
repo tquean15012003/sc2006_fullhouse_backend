@@ -62,6 +62,7 @@ const verifyUser = async (req, res) => {
         flag = user.verificationCode === verificationCode ? true : false
         if (flag) {
             user.isVerified = "true";
+            user.verificationCode = generateSixDigits()
             await user.save();
             res.status(201).send({
                 message: "Sign up successfully!"
