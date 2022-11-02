@@ -20,7 +20,7 @@ const getRetirementAgeHelper = (salary, carCat, housePrice, currentSaving, inves
         if (grad <= 55) {
             if (grad < 31) {
                 if (y === 0) {
-                    if(salary <= 1000)
+                    if(salary <= 1000)  
                     {
                         costofliving = 400;
                         y = 1;
@@ -135,6 +135,9 @@ const getRetirementAgeHelper = (salary, carCat, housePrice, currentSaving, inves
             total = init + investment + savings
             grad++;
             costofliving = costofliving * 1.05
+        }
+        if (grad >= 100) {
+            return grad
         }
     }
 
